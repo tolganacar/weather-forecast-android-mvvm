@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">WeatherForecast</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_try_again">Error! Try Again</string>
+    <string name="c">°C</string>
+    <string name="_00">00</string>
 </resources>
