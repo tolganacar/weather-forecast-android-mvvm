@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class WeatherForecastAPIService {
 
-    private val BASE_URL = "https://api.openweathermap.org"
+    private val BASE_URL = "https://api.openweathermap.org/"
 
     private val api = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -17,7 +17,7 @@ class WeatherForecastAPIService {
         .build()
         .create(WeatherForecastAPI::class.java)
 
-    fun getCurrentWeather(): Single<List<CurrentWeatherResponseModel>> {
-        return api.getCurrentWeather()
+    fun getIstanbulWeather(): Single<CurrentWeatherResponseModel> {
+        return api.getIstanbulWeather()
     }
 }
