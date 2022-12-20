@@ -21,9 +21,14 @@ class CurrentWeatherFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        dataBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_current_weather, container, false)
+    ): View {
+        dataBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_current_weather,
+            container,
+            false
+        )
+        dataBinding.lifecycleOwner = this
         return dataBinding.root
     }
 
@@ -33,21 +38,15 @@ class CurrentWeatherFragment : Fragment() {
         initializeViewModel()
         observeLiveData()
         setSwipeRefreshLayout()
+        viewModel.getCurrentWeatherFromAPI()
     }
 
     private fun initializeViewModel() {
         viewModel = ViewModelProviders.of(this).get(CurrentWeatherViewModel::class.java)
-        viewModel.getCurrentWeatherFromAPI()
         dataBinding.viewModel = viewModel
     }
 
     private fun observeLiveData() {
-        viewModel.currentWeather.observe(viewLifecycleOwner, Observer { currentWeathers ->
-            currentWeathers?.let {
-                viewModel.setCurrentWeather(currentWeathers)
-            }
-        })
-
         viewModel.shouldShowErrorMessage.observe(viewLifecycleOwner, Observer { error ->
             error?.let {
                 if (it) {

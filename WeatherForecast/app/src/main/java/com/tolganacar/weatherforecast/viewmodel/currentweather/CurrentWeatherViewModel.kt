@@ -18,10 +18,6 @@ class CurrentWeatherViewModel : ViewModel() {
     private val weatherForecastAPIService = WeatherForecastAPIService()
     private val disposable = CompositeDisposable()
 
-    fun setCurrentWeather(currentWeatherResponseModel: CurrentWeatherResponseModel) {
-        currentWeather.value = currentWeatherResponseModel
-    }
-
     fun getCurrentWeatherFromAPI() {
         isLoading.value = true
 
