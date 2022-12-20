@@ -35,15 +35,17 @@
 
             <TextView
                 android:id="@+id/currentTemperature"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="24dp"
+                android:gravity="center"
                 android:text="@{String.valueOf(viewModel.currentWeather.main.temp)}"
                 android:textColor="@color/white"
-                tools:text="17.0"
                 android:textSize="80sp"
-                app:layout_constraintTop_toBottomOf="@+id/currentCityName"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currentCityName"
+                tools:text="17.0" />
 
             <TextView
                 android:id="@+id/currentDescription"
@@ -51,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="12dp"
-                android:text="@{viewModel.currentWeather.weather.get(803).description}"
+                android:text="@{viewModel.currentWeather.weather.get(0).description}"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintTop_toBottomOf="@+id/currentTemperature" />
