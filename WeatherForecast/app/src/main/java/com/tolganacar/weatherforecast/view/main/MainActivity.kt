@@ -1,7 +1,8 @@
-package com.tolganacar.weatherforecast
+package com.tolganacar.weatherforecast.view.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.tolganacar.weatherforecast.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
