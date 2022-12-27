@@ -6,16 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.tolganacar.weatherforecast.R
 import com.tolganacar.weatherforecast.databinding.FragmentCurrentWeatherBinding
-import com.tolganacar.weatherforecast.viewmodel.currentweather.CurrentWeatherViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_current_weather.*
 
-class CurrentWeatherFragment : Fragment() {
+@AndroidEntryPoint
+class WeatherFragment : Fragment() {
 
-    private lateinit var viewModel: CurrentWeatherViewModel
+    private val viewModel: WeatherViewModel by viewModels()
+
     private lateinit var dataBinding: FragmentCurrentWeatherBinding
 
     override fun onCreateView(
@@ -35,14 +37,16 @@ class CurrentWeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializeViewModel()
+        initializeUI()
         observeLiveData()
         setSwipeRefreshLayout()
+
         viewModel.getCurrentWeatherFromAPI()
+        //TODO : viewModel.getHourlyWeatherFromAPI()
+        //TODO : viewModel.getTenDayWeatherFromAPI()
     }
 
-    private fun initializeViewModel() {
-        viewModel = ViewModelProviders.of(this).get(CurrentWeatherViewModel::class.java)
+    private fun initializeUI() {
         dataBinding.viewModel = viewModel
     }
 
