@@ -21,7 +21,7 @@ fun CurrentWeatherResponseModel.getTemperatureText(): String {
     val temperature = main?.temp ?: 0.0
     val degreeSymbol = "\u00B0"
 
-    return "$temperature $degreeSymbol"
+    return "$temperature$degreeSymbol"
 }
 
 fun CurrentWeatherResponseModel.getWeatherStatus(): String {
@@ -32,14 +32,14 @@ fun CurrentWeatherResponseModel.getMinTemperatureText(): String {
     val minTemperature = main?.temp_min ?: 0.0
     val degreeSymbol = "\u00B0"
 
-    return "L:$minTemperature $degreeSymbol"
+    return "L:$minTemperature$degreeSymbol"
 }
 
 fun CurrentWeatherResponseModel.getMaxTemperatureText(): String {
     val maxTemperature = main?.temp_max ?: 0.0
     val degreeSymbol = "\u00B0"
 
-    return "H:$maxTemperature $degreeSymbol"
+    return "H:$maxTemperature$degreeSymbol"
 }
 
 data class Coord(

@@ -10,7 +10,6 @@ interface WeatherService {
     suspend fun getCurrentCityWeather(@Query(CITY_NAME) cityName: String): CurrentWeatherResponseModel
 
     companion object {
-        private const val UNITS = "metric"
         const val CITY_NAME = "q"
         const val CURRENT_WEATHER = "data/2.5/weather?&units=metric"
     }
