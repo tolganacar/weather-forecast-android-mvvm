@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="com.tolganacar.weatherforecast.viewmodel.currentweather.CurrentWeatherViewModel" />
+            type="com.tolganacar.weatherforecast.view.currentweather.WeatherViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.currentweather.CurrentWeatherFragment">
+        tools:context=".view.currentweather.WeatherFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,22 +24,22 @@
             <TextView
                 android:id="@+id/currentCityName"
                 android:layout_width="match_parent"
-                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:text="@{viewModel.currentWeather.name}"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:text="@{viewModel.currentWeatherUIModel.name}"
                 android:textColor="@color/white"
                 android:textSize="30sp"
-                tools:text="Istanbul"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Istanbul" />
 
             <TextView
                 android:id="@+id/currentTemperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(viewModel.currentWeather.main.temp)}"
+                android:text="@{viewModel.currentWeatherUIModel.temperature}"
                 android:textColor="@color/white"
                 android:textSize="80sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -51,23 +51,41 @@
                 android:id="@+id/currentDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="12dp"
-                android:text="@{viewModel.currentWeather.weather.get(0).description}"
+                android:gravity="center"
+                android:text="@{viewModel.currentWeatherUIModel.weatherStatus}"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintTop_toBottomOf="@+id/currentTemperature" />
 
-            <TextView
-                android:id="@+id/centigrade"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/c"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                app:layout_constraintStart_toEndOf="@+id/currentTemperature"
-                app:layout_constraintTop_toTopOf="@+id/currentTemperature" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currentDescription"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/currentHighTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{viewModel.currentWeatherUIModel.maxTemperature}"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+
+                <TextView
+                    android:id="@+id/currentLowTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{viewModel.currentWeatherUIModel.minTemperature}"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:layout_marginStart="7dp"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/errorText"

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/currentWeatherFragment"
-        android:name="com.tolganacar.weatherforecast.view.currentweather.CurrentWeatherFragment"
+        android:name="com.tolganacar.weatherforecast.view.currentweather.WeatherFragment"
         android:label="fragment_current_weather"
         tools:layout="@layout/fragment_current_weather" />
 </navigation>
