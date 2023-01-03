@@ -77,5 +77,4 @@ class CurrentWeatherFragment : Fragment() {
             swipeRefreshLayout.isRefreshing = false
         }
     }
-
 }
