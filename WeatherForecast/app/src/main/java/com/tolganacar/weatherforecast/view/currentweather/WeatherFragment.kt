@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolganacar.weatherforecast.R
 import com.tolganacar.weatherforecast.databinding.FragmentCurrentWeatherBinding
+import com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_current_weather.*
 
@@ -19,6 +21,7 @@ class WeatherFragment : Fragment() {
     private val viewModel: WeatherViewModel by viewModels()
 
     private lateinit var dataBinding: FragmentCurrentWeatherBinding
+    private val threeHourlyAdapter = ThreeHourlyAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,16 +41,23 @@ class WeatherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeUI()
+        initializeRecyclerview()
         observeLiveData()
         setSwipeRefreshLayout()
 
         viewModel.getCurrentWeatherFromAPI()
-        //TODO : viewModel.getHourlyWeatherFromAPI()
+        viewModel.getThreeHourlyWeatherFromAPI()
         //TODO : viewModel.getTenDayWeatherFromAPI()
     }
 
     private fun initializeUI() {
         dataBinding.viewModel = viewModel
+    }
+
+    private fun initializeRecyclerview() {
+        threeHourlyRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        threeHourlyRecyclerView.adapter = threeHourlyAdapter
     }
 
     private fun observeLiveData() {

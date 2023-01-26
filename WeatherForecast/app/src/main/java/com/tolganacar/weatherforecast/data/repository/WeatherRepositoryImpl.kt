@@ -4,6 +4,7 @@ import com.tolganacar.weatherforecast.data.model.currentweather.CurrentWeatherRe
 import com.tolganacar.weatherforecast.data.service.WeatherService
 import com.tolganacar.weatherforecast.domain.repository.WeatherRepository
 import com.tolganacar.weatherforecast.data.model.currentweather.CurrentWeatherResponseModel
+import com.tolganacar.weatherforecast.data.model.currentweather.ThreeHourlyWeatherResponseModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import java.lang.Exception
@@ -16,6 +17,14 @@ class WeatherRepositoryImpl @Inject constructor(
     override suspend fun getCurrentWeather(req: CurrentWeatherRequest): Flow<CurrentWeatherResponseModel> {
         return try {
             flowOf(service.getCurrentCityWeather(req.cityName))
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    override suspend fun getThreeHourlyWeather(req: CurrentWeatherRequest): Flow<ThreeHourlyWeatherResponseModel> {
+        return try {
+            flowOf(service.getThreeHourlyWeather(req.cityName))
         } catch (e: Exception) {
             throw e
         }
