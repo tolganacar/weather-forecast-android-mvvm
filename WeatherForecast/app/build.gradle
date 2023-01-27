@@ -18,6 +18,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BASE_URL", '"https://api.openweathermap.org/"'
     }
 
     dataBinding{
@@ -80,6 +82,8 @@ dependencies {
     implementation "com.android.support:design:$supportVersion"
 
     implementation "androidx.preference:preference:$preferencesVersion"
+
+    implementation "com.squareup.okhttp3:logging-interceptor:4.4.0"
 }
 
 kapt {

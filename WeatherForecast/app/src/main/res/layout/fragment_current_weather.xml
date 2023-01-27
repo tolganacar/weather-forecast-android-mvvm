@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.currentweather.WeatherFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.tolganacar.weatherforecast.viewmodel.currentweather.CurrentWeatherViewModel" />
+            type="com.tolganacar.weatherforecast.view.currentweather.WeatherViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.currentweather.CurrentWeatherFragment">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,22 +24,22 @@
             <TextView
                 android:id="@+id/currentCityName"
                 android:layout_width="match_parent"
-                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:text="@{viewModel.currentWeather.name}"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:text="@{viewModel.currentWeatherUIModel.name}"
                 android:textColor="@color/white"
                 android:textSize="30sp"
-                tools:text="Istanbul"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Istanbul" />
 
             <TextView
                 android:id="@+id/currentTemperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(viewModel.currentWeather.main.temp)}"
+                android:text="@{viewModel.currentWeatherUIModel.temperature}"
                 android:textColor="@color/white"
                 android:textSize="80sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -51,23 +51,42 @@
                 android:id="@+id/currentDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="12dp"
-                android:text="@{viewModel.currentWeather.weather.get(0).description}"
+                android:gravity="center"
+                android:text="@{viewModel.currentWeatherUIModel.weatherStatus}"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintTop_toBottomOf="@+id/currentTemperature" />
 
-            <TextView
-                android:id="@+id/centigrade"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/c"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                app:layout_constraintStart_toEndOf="@+id/currentTemperature"
-                app:layout_constraintTop_toTopOf="@+id/currentTemperature" />
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currentDescription">
+
+                <TextView
+                    android:id="@+id/currentHighTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{viewModel.currentWeatherUIModel.maxTemperature}"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+
+                <TextView
+                    android:id="@+id/currentLowTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:gravity="center"
+                    android:text="@{viewModel.currentWeatherUIModel.minTemperature}"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/errorText"
@@ -91,6 +110,90 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/threeHourlyCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currentDescription">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/threeHourlyRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tenDayCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/threeHourlyCardView">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/calendar"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/calendar" />
+
+                        <TextView
+                            android:id="@+id/tenDayForecast"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_10_day_forecast"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="30dp"
+                        android:background="#D8D6D6" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/tenDayRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

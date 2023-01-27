@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="threeHourlyWeather"
+            type="com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyWeatherUIModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{threeHourlyWeather.hour}"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/threeHourlyImage"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:downloadUrl="@{threeHourlyWeather.icon}" />
+
+        <TextView
+            android:id="@+id/threeHourlyTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{threeHourlyWeather.temperature}"
+            android:textSize="14sp" />
+    </LinearLayout>
+</layout>

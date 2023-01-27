@@ -3,7 +3,9 @@ package com.tolganacar.weatherforecast.view.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tolganacar.weatherforecast.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
