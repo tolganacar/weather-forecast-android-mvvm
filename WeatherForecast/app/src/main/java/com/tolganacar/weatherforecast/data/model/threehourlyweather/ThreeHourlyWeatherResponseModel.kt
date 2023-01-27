@@ -9,22 +9,21 @@ data class ThreeHourlyWeatherResponseModel(
 )
 
 fun ThreeHourlyWeatherResponseModel.getTemperatureText(): String {
-    val temperature = list?.get(0)?.main?.temp ?: 0.0
+    val temperature = list?.firstOrNull()?.main?.temp ?: 0.0
     val degreeSymbol = "\u00B0"
 
     return "$temperature$degreeSymbol"
 }
 
 fun ThreeHourlyWeatherResponseModel.getTime(): String {
-    val hour = list?.get(0)?.dt_txt?.substring(10,15)
+    val hour = list?.get(0)?.dt_txt?.substring(10,15) ?: 0.0
 
     return "$hour"
 }
 
 fun ThreeHourlyWeatherResponseModel.getIcon(): String {
-    val icon = list?.get(0)?.weather?.firstOrNull()?.icon ?: "Unknown"
 
-    return "$icon"
+    return list?.firstOrNull()?.weather?.firstOrNull()?.icon ?: "Unknown"
 }
 
 data class SysThreeHourly(

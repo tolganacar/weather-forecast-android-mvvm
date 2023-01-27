@@ -1,4 +1,4 @@
-package com.tolganacar.weatherforecast.view.currentweather.uimodel
+package com.tolganacar.weatherforecast.view.currentweather
 
 data class CurrentWeatherUIModel(
     val name: String,

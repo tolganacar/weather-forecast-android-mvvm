@@ -3,7 +3,7 @@ package com.tolganacar.weatherforecast.domain.currentweather
 import com.tolganacar.weatherforecast.base.BaseUseCase
 import com.tolganacar.weatherforecast.data.model.currentweather.*
 import com.tolganacar.weatherforecast.domain.repository.WeatherRepository
-import com.tolganacar.weatherforecast.view.currentweather.uimodel.CurrentWeatherUIModel
+import com.tolganacar.weatherforecast.view.currentweather.CurrentWeatherUIModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

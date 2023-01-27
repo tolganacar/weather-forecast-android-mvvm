@@ -6,7 +6,7 @@ import com.tolganacar.weatherforecast.data.model.currentweather.getIcon
 import com.tolganacar.weatherforecast.data.model.currentweather.getTemperatureText
 import com.tolganacar.weatherforecast.data.model.currentweather.getTime
 import com.tolganacar.weatherforecast.domain.repository.WeatherRepository
-import com.tolganacar.weatherforecast.view.threehourlyweather.uimodel.ThreeHourlyWeatherUIModel
+import com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyWeatherUIModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

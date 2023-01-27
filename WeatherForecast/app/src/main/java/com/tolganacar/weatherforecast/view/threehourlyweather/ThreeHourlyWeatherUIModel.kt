@@ -1,4 +1,4 @@
-package com.tolganacar.weatherforecast.view.threehourlyweather.uimodel
+package com.tolganacar.weatherforecast.view.threehourlyweather
 
 data class ThreeHourlyWeatherUIModel(
     val hour: String,
