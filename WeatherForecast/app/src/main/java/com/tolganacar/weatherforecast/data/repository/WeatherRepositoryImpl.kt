@@ -2,10 +2,8 @@ package com.tolganacar.weatherforecast.data.repository
 
 import com.tolganacar.weatherforecast.data.model.currentweather.CurrentWeatherRequest
 import com.tolganacar.weatherforecast.data.service.WeatherService
-import com.tolganacar.weatherforecast.domain.repository.WeatherRepository
 import com.tolganacar.weatherforecast.data.model.currentweather.CurrentWeatherResponseModel
-import com.tolganacar.weatherforecast.data.model.currentweather.ThreeHourlyWeatherResponseModel
-import com.tolganacar.weatherforecast.data.model.tendayweather.TenDayWeatherResponseModel
+import com.tolganacar.weatherforecast.data.model.threehourlyweather.ThreeHourlyWeatherResponseModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import java.lang.Exception
@@ -31,12 +29,5 @@ class WeatherRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTenDayWeather(req: CurrentWeatherRequest): Flow<TenDayWeatherResponseModel> {
-        return try {
-            flowOf(service.getTenDayWeather(req.cityName))
-        } catch (e: Exception) {
-            throw e
-        }
-    }
 
 }

@@ -3,10 +3,11 @@ package com.tolganacar.weatherforecast.view.threehourlyweather
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.tolganacar.weatherforecast.data.model.threehourlyweather.ThreeHourlyWeatherResponseModel
 import com.tolganacar.weatherforecast.databinding.ThreeHourlyWeatherRowBinding
 
 class ThreeHourlyWeatherAdapter(
-    private val threeHourlyWeatherList: ArrayList<ThreeHourlyWeatherUIModel>
+    private val threeHourlyWeatherList: ArrayList<ThreeHourlyUI>
 ) : RecyclerView.Adapter<ThreeHourlyWeatherAdapter.ThreeHourlyViewHolder>() {
 
     class ThreeHourlyViewHolder(val binding: ThreeHourlyWeatherRowBinding) :
@@ -25,5 +26,11 @@ class ThreeHourlyWeatherAdapter(
 
     override fun getItemCount(): Int {
         return threeHourlyWeatherList.size
+    }
+
+    fun updateThreeHourlyWeatherList(newThreeHourlyWeatherList: List<ThreeHourlyUI>) {
+        threeHourlyWeatherList.clear()
+        threeHourlyWeatherList.addAll(newThreeHourlyWeatherList)
+        notifyDataSetChanged()
     }
 }

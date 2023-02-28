@@ -19,7 +19,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "BASE_URL", '"https://api.openweathermap.org/"'
+        buildConfigField "String", "BASE_URL_OPENWEATHERMAP", '"https://api.openweathermap.org/"'
+        buildConfigField "String", "BASE_URL_WEATHERAPI", '"http://api.weatherapi.com/"'
     }
 
     dataBinding{

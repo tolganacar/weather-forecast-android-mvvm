@@ -1,9 +1,8 @@
-package com.tolganacar.weatherforecast.domain.repository
+package com.tolganacar.weatherforecast.data.repository
 
 import com.tolganacar.weatherforecast.data.model.currentweather.CurrentWeatherRequest
 import com.tolganacar.weatherforecast.data.model.currentweather.CurrentWeatherResponseModel
-import com.tolganacar.weatherforecast.data.model.currentweather.ThreeHourlyWeatherResponseModel
-import com.tolganacar.weatherforecast.data.model.tendayweather.TenDayWeatherResponseModel
+import com.tolganacar.weatherforecast.data.model.threehourlyweather.ThreeHourlyWeatherResponseModel
 import kotlinx.coroutines.flow.Flow
 
 interface WeatherRepository {
@@ -11,7 +10,4 @@ interface WeatherRepository {
     suspend fun getCurrentWeather(req: CurrentWeatherRequest): Flow<CurrentWeatherResponseModel>
 
     suspend fun getThreeHourlyWeather(req: CurrentWeatherRequest): Flow<ThreeHourlyWeatherResponseModel>
-
-    suspend fun getTenDayWeather(req: CurrentWeatherRequest): Flow<TenDayWeatherResponseModel>
-
 }

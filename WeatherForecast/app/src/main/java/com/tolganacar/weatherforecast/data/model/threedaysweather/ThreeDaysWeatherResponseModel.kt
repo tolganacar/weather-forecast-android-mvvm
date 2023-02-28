@@ -1,33 +1,10 @@
-package com.tolganacar.weatherforecast.data.model.tendayweather
+package com.tolganacar.weatherforecast.data.model.threedaysweather
 
-data class TenDayWeatherResponseModel(
+data class ThreeDaysWeatherResponseModel(
     val current: Current,
     val forecast: Forecast,
     val location: Location
 )
-
-fun TenDayWeatherResponseModel.getDateText(): String {
-
-    return forecast.forecastday.firstOrNull()?.date ?: "Unknown"
-}
-
-fun TenDayWeatherResponseModel.getImage(): String {
-    return forecast.forecastday.firstOrNull()?.day?.condition?.icon ?: "Unknown"
-}
-
-fun TenDayWeatherResponseModel.getMinTemperatureText(): String {
-    val minTemperature = forecast.forecastday.firstOrNull()?.day?.mintemp_c ?: 0.0
-    val degreeSymbol = "\u00B0"
-
-    return "$minTemperature$degreeSymbol"
-}
-
-fun TenDayWeatherResponseModel.getMaxTemperatureText(): String {
-    val maxTemperature = forecast.forecastday.firstOrNull()?.day?.maxtemp_c ?: 0.0
-    val degreeSymbol = "\u00B0"
-
-    return "$maxTemperature$degreeSymbol"
-}
 
 data class Astro(
     val moon_illumination: String,

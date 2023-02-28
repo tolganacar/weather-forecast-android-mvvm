@@ -5,34 +5,38 @@
 
         <variable
             name="threeHourlyWeather"
-            type="com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyWeatherUIModel" />
+            type="com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyUI" />
     </data>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginEnd="25dp">
 
         <TextView
             android:id="@+id/hour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{threeHourlyWeather.hour}"
-            android:textSize="14sp" />
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
 
         <ImageView
             android:id="@+id/threeHourlyImage"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginTop="5dp"
-            android:downloadUrl="@{threeHourlyWeather.icon}" />
+            android:downloadUrl="@{threeHourlyWeather.icon}"
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/threeHourlyTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@{threeHourlyWeather.temperature}"
-            android:textSize="14sp" />
+            android:text="@{String.valueOf(threeHourlyWeather.temperature)}"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
     </LinearLayout>
 </layout>
