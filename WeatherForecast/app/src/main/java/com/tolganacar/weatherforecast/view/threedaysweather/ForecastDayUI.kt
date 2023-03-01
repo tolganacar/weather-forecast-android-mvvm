@@ -1,6 +1,6 @@
-package com.tolganacar.weatherforecast.view.tendayweather
+package com.tolganacar.weatherforecast.view.threedaysweather
 
-data class TenDayWeatherUIModel(
+class ForecastDayUI(
     val date: String,
     val image: String,
     val maxTemperature: String,

@@ -2,7 +2,8 @@ package com.tolganacar.weatherforecast.data.module
 
 import com.tolganacar.weatherforecast.data.repository.WeatherRepositoryImpl
 import com.tolganacar.weatherforecast.data.service.WeatherService
-import com.tolganacar.weatherforecast.domain.repository.WeatherRepository
+import com.tolganacar.weatherforecast.data.repository.WeatherRepository
+import com.tolganacar.weatherforecast.module.WeatherRetrofit
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +17,7 @@ object WeatherModule {
 
     @Provides
     @Singleton
-    fun provideWeatherService(retrofit: Retrofit): WeatherService {
+    fun provideWeatherService(@WeatherRetrofit retrofit: Retrofit): WeatherService {
         return retrofit.create(WeatherService::class.java)
     }
 

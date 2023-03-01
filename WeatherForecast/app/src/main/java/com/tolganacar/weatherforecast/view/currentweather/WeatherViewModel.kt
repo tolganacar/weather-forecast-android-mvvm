@@ -4,10 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tolganacar.weatherforecast.domain.currentweather.GetCurrentWeatherUseCase
-import com.tolganacar.weatherforecast.domain.tendayweather.GetTenDayWeatherUseCase
+import com.tolganacar.weatherforecast.domain.tendayweather.GetThreeDaysWeatherUseCase
 import com.tolganacar.weatherforecast.domain.threehourlyweather.GetThreeHourlyWeatherUseCase
-import com.tolganacar.weatherforecast.view.tendayweather.TenDayWeatherUIModel
-import com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyWeatherUIModel
+import com.tolganacar.weatherforecast.view.threedaysweather.ForecastDayUI
+import com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
@@ -19,18 +19,18 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val currentWeatherUseCase: GetCurrentWeatherUseCase,
     private val threeHourlyWeatherUseCase: GetThreeHourlyWeatherUseCase,
-    private val tenDayWeatherUseCase: GetTenDayWeatherUseCase
+    private val threeDaysWeatherUseCase: GetThreeDaysWeatherUseCase
 ) : ViewModel() {
 
     val currentWeatherUIModel = MutableLiveData<CurrentWeatherUIModel>()
-    val threeHourlyWeatherUIModel = MutableLiveData<ThreeHourlyWeatherUIModel>()
-    val tenDayWeatherUIModel = MutableLiveData<TenDayWeatherUIModel>()
+    val threeHourlyWeatherUIModel = MutableLiveData<List<ThreeHourlyUI>>()
+    val threeDaysWeatherUIModel = MutableLiveData<List<ForecastDayUI>>()
 
     val shouldShowErrorMessage = MutableLiveData<Boolean>()
     val isLoading = MutableLiveData<Boolean>()
 
     fun getCurrentWeatherFromAPI() = viewModelScope.launch {
-        currentWeatherUseCase.execute(GetCurrentWeatherUseCase.Params("İstanbul"))
+        currentWeatherUseCase.execute(GetCurrentWeatherUseCase.Params("istanbul"))
             .onStart { isLoading.value = true }
             .onCompletion { isLoading.value = false }
             .catch {
@@ -42,26 +42,26 @@ class WeatherViewModel @Inject constructor(
     }
 
     fun getThreeHourlyWeatherFromAPI() = viewModelScope.launch {
-        threeHourlyWeatherUseCase.execute(GetThreeHourlyWeatherUseCase.Params("İstanbul"))
+        threeHourlyWeatherUseCase.execute(GetThreeHourlyWeatherUseCase.Params("istanbul"))
             .onStart { isLoading.value = true }
             .onCompletion { isLoading.value = false }
             .catch {
                 shouldShowErrorMessage.value = true
             }
             .collect {
-                threeHourlyWeatherUIModel.value = it
+                threeHourlyWeatherUIModel.value = it.hourlyList
             }
     }
 
-    fun getTenDayWeatherFromAPI() = viewModelScope.launch {
-        tenDayWeatherUseCase.execute(GetTenDayWeatherUseCase.Params("İstanbul"))
+    fun getThreeDaysWeatherFromAPI() = viewModelScope.launch {
+        threeDaysWeatherUseCase.execute(GetThreeDaysWeatherUseCase.Params("istanbul",3))
             .onStart { isLoading.value = true }
             .onCompletion { isLoading.value = false }
             .catch {
                 shouldShowErrorMessage.value = true
             }
             .collect {
-                tenDayWeatherUIModel.value = it
+                threeDaysWeatherUIModel.value = it.weatherList
             }
     }
 }

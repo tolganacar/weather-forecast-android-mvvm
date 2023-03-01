@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolganacar.weatherforecast.R
 import com.tolganacar.weatherforecast.databinding.FragmentCurrentWeatherBinding
-import com.tolganacar.weatherforecast.view.tendayweather.TenDayWeatherAdapter
+import com.tolganacar.weatherforecast.view.threedaysweather.ThreeDaysWeatherAdapter
 import com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_current_weather.*
@@ -23,7 +23,7 @@ class WeatherFragment : Fragment() {
 
     private lateinit var dataBinding: FragmentCurrentWeatherBinding
     private val threeHourlyAdapter = ThreeHourlyWeatherAdapter(arrayListOf())
-    private val tenDayWeatherAdapter = TenDayWeatherAdapter(arrayListOf())
+    private val threeDaysWeatherAdapter = ThreeDaysWeatherAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +49,7 @@ class WeatherFragment : Fragment() {
 
         viewModel.getCurrentWeatherFromAPI()
         viewModel.getThreeHourlyWeatherFromAPI()
-        viewModel.getTenDayWeatherFromAPI()
+        viewModel.getThreeDaysWeatherFromAPI()
     }
 
     private fun initializeUI() {
@@ -61,11 +61,25 @@ class WeatherFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         threeHourlyRecyclerView.adapter = threeHourlyAdapter
 
-        tenDayRecyclerView.layoutManager = LinearLayoutManager(context)
-        tenDayRecyclerView.adapter = tenDayWeatherAdapter
+        threeDaysRecyclerView.layoutManager = LinearLayoutManager(context)
+        threeDaysRecyclerView.adapter = threeDaysWeatherAdapter
     }
 
     private fun observeLiveData() {
+        viewModel.threeDaysWeatherUIModel.observe(viewLifecycleOwner, Observer { threeDaysWeather ->
+            threeDaysWeather?.let {
+                threeDaysRecyclerView.visibility = View.VISIBLE
+                threeDaysWeatherAdapter.updateTenDayWeatherList(threeDaysWeather)
+            }
+        })
+
+        viewModel.threeHourlyWeatherUIModel.observe(viewLifecycleOwner, Observer { threeHourlyWeather ->
+                threeHourlyWeather?.let {
+                    threeHourlyRecyclerView.visibility = View.VISIBLE
+                    threeHourlyAdapter.updateThreeHourlyWeatherList(threeHourlyWeather)
+                }
+            })
+
         viewModel.shouldShowErrorMessage.observe(viewLifecycleOwner, Observer { error ->
             error?.let {
                 if (it) {

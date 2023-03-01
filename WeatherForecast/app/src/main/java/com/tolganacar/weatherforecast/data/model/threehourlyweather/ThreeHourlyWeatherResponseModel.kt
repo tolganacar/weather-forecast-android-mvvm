@@ -1,30 +1,17 @@
-package com.tolganacar.weatherforecast.data.model.currentweather
+package com.tolganacar.weatherforecast.data.model.threehourlyweather
+
+import com.tolganacar.weatherforecast.data.model.currentweather.Clouds
+import com.tolganacar.weatherforecast.data.model.currentweather.Coord
+import com.tolganacar.weatherforecast.data.model.currentweather.Weather
+import com.tolganacar.weatherforecast.data.model.currentweather.Wind
 
 data class ThreeHourlyWeatherResponseModel(
     val city: City? = null,
     val cnt: Int? = null,
     val cod: String? = null,
-    val list: List<ListElements>? = null,
+    val list: List<ListElements>,
     val message: Int? = null
 )
-
-fun ThreeHourlyWeatherResponseModel.getTemperatureText(): String {
-    val temperature = list?.firstOrNull()?.main?.temp ?: 0.0
-    val degreeSymbol = "\u00B0"
-
-    return "$temperature$degreeSymbol"
-}
-
-fun ThreeHourlyWeatherResponseModel.getTime(): String {
-    val hour = list?.get(0)?.dt_txt?.substring(10,15) ?: 0.0
-
-    return "$hour"
-}
-
-fun ThreeHourlyWeatherResponseModel.getIcon(): String {
-
-    return list?.firstOrNull()?.weather?.firstOrNull()?.icon ?: "Unknown"
-}
 
 data class SysThreeHourly(
     val pod: String
