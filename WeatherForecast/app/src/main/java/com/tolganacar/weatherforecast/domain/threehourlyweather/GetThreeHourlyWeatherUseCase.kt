@@ -2,6 +2,7 @@ package com.tolganacar.weatherforecast.domain.threehourlyweather
 
 import com.tolganacar.weatherforecast.base.BaseUseCase
 import com.tolganacar.weatherforecast.data.model.currentweather.CurrentWeatherRequest
+import com.tolganacar.weatherforecast.data.model.threehourlyweather.getTemperatureText
 import com.tolganacar.weatherforecast.data.repository.WeatherRepository
 import com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyUI
 import com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyWeatherUIModel
@@ -23,7 +24,7 @@ class GetThreeHourlyWeatherUseCase @Inject constructor(
                 hourlyList = it.list.map { listElements ->
                     ThreeHourlyUI(
                         hour = listElements.dt_txt.substring(10,16),
-                        temperature = listElements.main.temp.toString().substring(0,3) + "\u00B0",
+                        temperature = listElements.getTemperatureText(),
                         icon = "http://openweathermap.org/img/w/" + listElements.weather[0].icon + ".png"
                     )
                 }
