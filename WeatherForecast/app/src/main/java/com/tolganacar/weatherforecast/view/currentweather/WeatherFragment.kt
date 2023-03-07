@@ -1,10 +1,13 @@
 package com.tolganacar.weatherforecast.view.currentweather
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -25,6 +28,10 @@ class WeatherFragment : Fragment() {
     private val threeHourlyAdapter = ThreeHourlyWeatherAdapter(arrayListOf())
     private val threeDaysWeatherAdapter = ThreeDaysWeatherAdapter(arrayListOf())
 
+    private lateinit var getSharedPreferences: SharedPreferences
+    private lateinit var setSharedPreferences: SharedPreferences.Editor
+    private var cName: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +42,11 @@ class WeatherFragment : Fragment() {
             container,
             false
         )
+        getSharedPreferences =
+            requireActivity().getSharedPreferences("CityHolder", Context.MODE_PRIVATE)
+        cName = getSharedPreferences.getString("cityName", "istanbul")
+        setSharedPreferences = getSharedPreferences.edit()
+
         dataBinding.lifecycleOwner = this
         return dataBinding.root
     }
@@ -46,10 +58,10 @@ class WeatherFragment : Fragment() {
         initializeRecyclerview()
         observeLiveData()
         setSwipeRefreshLayout()
+        searchImageOnClickListener()
+        setWeatherListArray()
 
-        viewModel.getCurrentWeatherFromAPI()
-        viewModel.getThreeHourlyWeatherFromAPI()
-        viewModel.getThreeDaysWeatherFromAPI()
+        viewModel.getAllWeatherInformationFromAPI(cName!!)
     }
 
     private fun initializeUI() {
@@ -73,7 +85,9 @@ class WeatherFragment : Fragment() {
             }
         })
 
-        viewModel.threeHourlyWeatherUIModel.observe(viewLifecycleOwner, Observer { threeHourlyWeather ->
+        viewModel.threeHourlyWeatherUIModel.observe(
+            viewLifecycleOwner,
+            Observer { threeHourlyWeather ->
                 threeHourlyWeather?.let {
                     threeHourlyRecyclerView.visibility = View.VISIBLE
                     threeHourlyAdapter.updateThreeHourlyWeatherList(threeHourlyWeather)
@@ -106,8 +120,30 @@ class WeatherFragment : Fragment() {
         swipeRefreshLayout.setOnRefreshListener {
             errorText.visibility = View.GONE
             loadingBar.visibility = View.VISIBLE
-            viewModel.getCurrentWeatherFromAPI()
+            var cityName = getSharedPreferences.getString("cityName", cName)
+            viewModel.getAllWeatherInformationFromAPI(cityName!!)
             swipeRefreshLayout.isRefreshing = false
         }
+    }
+
+    private fun searchImageOnClickListener() {
+        searchImage.setOnClickListener {
+            if (autoCompleteTextView.text.toString() == "") {
+            } else if (!(resources.getStringArray(R.array.turkey_city).contains(autoCompleteTextView.text.toString()))) {
+                autoCompleteTextView.setText("")
+            } else {
+                val cityName = autoCompleteTextView.text.toString()
+                setSharedPreferences.putString("cityName", cityName).apply()
+                viewModel.getAllWeatherInformationFromAPI(cityName)
+                autoCompleteTextView.setText("")
+            }
+        }
+    }
+
+    private fun setWeatherListArray() {
+        val itemArray = resources.getStringArray(R.array.turkey_city)
+        val arrayAdapter =
+            context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, itemArray) }
+        autoCompleteTextView.setAdapter(arrayAdapter)
     }
 }

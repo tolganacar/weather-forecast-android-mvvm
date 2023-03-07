@@ -29,8 +29,14 @@ class WeatherViewModel @Inject constructor(
     val shouldShowErrorMessage = MutableLiveData<Boolean>()
     val isLoading = MutableLiveData<Boolean>()
 
-    fun getCurrentWeatherFromAPI() = viewModelScope.launch {
-        currentWeatherUseCase.execute(GetCurrentWeatherUseCase.Params("istanbul"))
+    fun getAllWeatherInformationFromAPI(cityName: String){
+        getCurrentWeatherFromAPI(cityName)
+        getThreeHourlyWeatherFromAPI(cityName)
+        getThreeDaysWeatherFromAPI(cityName)
+    }
+
+    fun getCurrentWeatherFromAPI(cityName: String) = viewModelScope.launch {
+        currentWeatherUseCase.execute(GetCurrentWeatherUseCase.Params(cityName))
             .onStart { isLoading.value = true }
             .onCompletion { isLoading.value = false }
             .catch {
@@ -41,8 +47,8 @@ class WeatherViewModel @Inject constructor(
             }
     }
 
-    fun getThreeHourlyWeatherFromAPI() = viewModelScope.launch {
-        threeHourlyWeatherUseCase.execute(GetThreeHourlyWeatherUseCase.Params("istanbul"))
+    fun getThreeHourlyWeatherFromAPI(cityName: String) = viewModelScope.launch {
+        threeHourlyWeatherUseCase.execute(GetThreeHourlyWeatherUseCase.Params(cityName))
             .onStart { isLoading.value = true }
             .onCompletion { isLoading.value = false }
             .catch {
@@ -53,8 +59,8 @@ class WeatherViewModel @Inject constructor(
             }
     }
 
-    fun getThreeDaysWeatherFromAPI() = viewModelScope.launch {
-        threeDaysWeatherUseCase.execute(GetThreeDaysWeatherUseCase.Params("istanbul",3))
+    fun getThreeDaysWeatherFromAPI(cityName: String) = viewModelScope.launch {
+        threeDaysWeatherUseCase.execute(GetThreeDaysWeatherUseCase.Params(cityName,3))
             .onStart { isLoading.value = true }
             .onCompletion { isLoading.value = false }
             .catch {

@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/NACAR/Desktop/weatherapp/WeatherForecast/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.198" />
+        <entry key="..\:/Users/NACAR/Desktop/weatherapp/WeatherForecast/app/src/main/res/drawable/seach_view_background.xml" value="0.1115" />
+        <entry key="..\:/Users/NACAR/Desktop/weatherapp/WeatherForecast/app/src/main/res/drawable/searchview_background.xml" value="0.1835" />
         <entry key="..\:/Users/NACAR/Desktop/weatherapp/WeatherForecast/app/src/main/res/layout/activity_main.xml" value="0.21393034825870647" />
         <entry key="..\:/Users/NACAR/Desktop/weatherapp/WeatherForecast/app/src/main/res/layout/fragment_current_weather.xml" value="0.1" />
         <entry key="..\:/Users/NACAR/Desktop/weatherapp/WeatherForecast/app/src/main/res/layout/ten_day_weather_row.xml" value="0.1" />
+        <entry key="..\:/Users/NACAR/Desktop/weatherapp/WeatherForecast/app/src/main/res/layout/three_days_weather_row.xml" value="0.11676798378926039" />
         <entry key="..\:/Users/NACAR/Desktop/weatherapp/WeatherForecast/app/src/main/res/layout/three_hourly_weather_row.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1286231884057971" />
         <entry key="app/src/main/res/layout/fragment_current_weather.xml" value="0.1286231884057971" />

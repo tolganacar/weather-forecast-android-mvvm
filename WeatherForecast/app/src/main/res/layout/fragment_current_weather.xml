@@ -25,11 +25,40 @@
                 android:layout_height="match_parent"
                 android:background="#00B0FF">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/searchview_background"
+                        android:backgroundTint="#E8ECEB"
+                        android:hint=" Search City"
+                        android:completionThreshold="1"
+                        android:maxLines="1"/>
+
+                    <ImageView
+                        android:id="@+id/searchImage"
+                        android:layout_width="60dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_baseline_search_24" />
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/currentCityName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="70dp"
                     android:gravity="center"
                     android:text="@{viewModel.currentWeatherUIModel.name}"
                     android:textColor="@color/white"
@@ -85,7 +114,7 @@
                         android:id="@+id/currentLowTemperature"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="7dp"
+                        android:layout_marginStart="15dp"
                         android:gravity="center"
                         android:text="@{viewModel.currentWeatherUIModel.minTemperature}"
                         android:textColor="@color/white"
@@ -153,51 +182,51 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/threeHourlyCardView">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                            <LinearLayout
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/calendar"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/calendar" />
+
+                            <TextView
+                                android:id="@+id/threeDaysForecast"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="5dp"
-                                android:orientation="horizontal">
+                                android:layout_marginStart="5dp"
+                                android:text="@string/_3_day_forecast"
+                                android:textSize="20sp" />
 
-                                <ImageView
-                                    android:id="@+id/calendar"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:src="@drawable/calendar" />
-
-                                <TextView
-                                    android:id="@+id/threeDaysForecast"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/_3_day_forecast"
-                                    android:textSize="20sp"
-                                    android:layout_marginStart="5dp"/>
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginStart="30dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginEnd="30dp"
-                                android:background="#D8D6D6" />
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/threeDaysRecyclerView"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginBottom="20dp" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="30dp"
+                            android:background="#D8D6D6" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/threeDaysRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp" />
+                    </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
