@@ -2,6 +2,7 @@ package com.tolganacar.weatherforecast.view.currentweather
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -78,6 +79,48 @@ class WeatherFragment : Fragment() {
     }
 
     private fun observeLiveData() {
+        viewModel.currentWeatherUIModel.observe(viewLifecycleOwner, Observer { currentWeather ->
+            currentWeather?.let {
+                when (it.weatherMain) {
+                    "Thunderstorm" -> {
+                        mainPage.setBackgroundResource(R.drawable.thunderstorm)
+                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#EB8C66E1"))
+                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#EB8C66E1"))
+                    }
+                    "Drizzle" -> {
+                        mainPage.setBackgroundResource(R.drawable.rainy)
+                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#EB0A3B40"))
+                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#EB0A3B40"))
+                    }
+                    "Rain" -> {
+                        mainPage.setBackgroundResource(R.drawable.rainy)
+                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#EB0A3B40"))
+                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#EB0A3B40"))
+                    }
+                    "Snow" -> {
+                        mainPage.setBackgroundResource(R.drawable.snowy)
+                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#F2171C83"))
+                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#F2171C83"))
+                    }
+                    "Clear" -> {
+                        mainPage.setBackgroundResource(R.drawable.clearsky)
+                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#EB6C9CEC"))
+                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#EB6C9CEC"))
+                    }
+                    "Clouds" -> {
+                        mainPage.setBackgroundResource(R.drawable.cloudy)
+                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#EB7FB3D3"))
+                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#EB7FB3D3"))
+                    }
+                    else -> {
+                        mainPage.setBackgroundColor(Color.parseColor("#57BAE6"))
+                        threeHourlyCardView.setCardBackgroundColor(Color.WHITE)
+                        threeDaysWeatherCardView.setCardBackgroundColor(Color.WHITE)
+                    }
+                }
+            }
+        })
+
         viewModel.threeDaysWeatherUIModel.observe(viewLifecycleOwner, Observer { threeDaysWeather ->
             threeDaysWeather?.let {
                 threeDaysRecyclerView.visibility = View.VISIBLE
@@ -129,7 +172,9 @@ class WeatherFragment : Fragment() {
     private fun searchImageOnClickListener() {
         searchImage.setOnClickListener {
             if (autoCompleteTextView.text.toString() == "") {
-            } else if (!(resources.getStringArray(R.array.turkey_city).contains(autoCompleteTextView.text.toString()))) {
+            } else if (!(resources.getStringArray(R.array.turkey_city)
+                    .contains(autoCompleteTextView.text.toString()))
+            ) {
                 autoCompleteTextView.setText("")
             } else {
                 val cityName = autoCompleteTextView.text.toString()

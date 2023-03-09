@@ -11,32 +11,34 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginEnd="25dp">
+        android:layout_marginEnd="25dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/hour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@{threeHourlyWeather.hour}"
-            android:textSize="20sp"
-            android:layout_gravity="center"/>
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/threeHourlyImage"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:downloadUrl="@{threeHourlyWeather.icon}"
-            android:layout_gravity="center"/>
+            android:downloadUrl="@{threeHourlyWeather.icon}" />
 
         <TextView
             android:id="@+id/threeHourlyTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:text="@{String.valueOf(threeHourlyWeather.temperature)}"
-            android:textSize="20sp"
-            android:layout_gravity="center"/>
+            android:textColor="@color/white"
+            android:textSize="20sp" />
     </LinearLayout>
 </layout>
