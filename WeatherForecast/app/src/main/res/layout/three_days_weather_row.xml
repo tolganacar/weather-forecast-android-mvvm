@@ -22,17 +22,18 @@
                 android:id="@+id/tenDayWeatherDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="@{threeDaysWeather.date}"
-                android:textSize="20sp"
-                android:layout_gravity="center"/>
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/tenDayWeatherImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="20dp"
-                android:downloadUrl="@{threeDaysWeather.image}"
-                android:layout_gravity="center"/>
+                android:downloadUrl="@{threeDaysWeather.image}" />
 
             <TextView
                 android:id="@+id/tenDayWeatherMinTemp"
@@ -42,7 +43,8 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|end|center"
                 android:text="@{String.valueOf(threeDaysWeather.minTemperature)}"
-                android:textSize="25sp" />
+                android:textColor="@color/white"
+                android:textSize="23sp" />
 
             <TextView
                 android:id="@+id/tenDayWeatherMaxTemp"
@@ -52,7 +54,8 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|end"
                 android:text="@{String.valueOf(threeDaysWeather.maxTemperature)}"
-                android:textSize="25sp" />
+                android:textColor="@color/white"
+                android:textSize="23sp" />
 
         </LinearLayout>
 
@@ -60,8 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:background="#D8D6D6" />
     </LinearLayout>

@@ -46,6 +46,10 @@ fun CurrentWeatherResponseModel.getWeatherStatus(): String {
     return weather?.firstOrNull()?.description ?: "Unknown"
 }
 
+fun CurrentWeatherResponseModel.getWeatherMain(): String {
+    return weather?.firstOrNull()?.main ?: "Unknown"
+}
+
 fun CurrentWeatherResponseModel.getMinTemperatureText(): String {
     val degreeSymbol = "\u00B0"
     lateinit var getMinTemperature: String

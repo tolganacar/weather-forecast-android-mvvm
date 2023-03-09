@@ -22,6 +22,7 @@ class GetCurrentWeatherUseCase @Inject constructor(
                 name = it.name ?: params.cityName,
                 temperature = it.getTemperatureText(),
                 weatherStatus = it.getWeatherStatus(),
+                weatherMain = it.getWeatherMain(),
                 minTemperature = it.getMinTemperatureText(),
                 maxTemperature = it.getMaxTemperatureText()
             )

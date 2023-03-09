@@ -51,6 +51,7 @@ dependencies {
     def rxJavaVersion = '2.1.1'
     def navVersion = '2.5.3'
     def preferencesVersion = '1.2.0'
+    def lottieVersion = "3.4.0"
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -85,6 +86,8 @@ dependencies {
     implementation "androidx.preference:preference:$preferencesVersion"
 
     implementation "com.squareup.okhttp3:logging-interceptor:4.4.0"
+
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }
 
 kapt {
