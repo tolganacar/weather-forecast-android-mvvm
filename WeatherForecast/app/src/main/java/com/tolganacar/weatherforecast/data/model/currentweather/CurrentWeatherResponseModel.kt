@@ -1,20 +1,27 @@
 package com.tolganacar.weatherforecast.data.model.currentweather
 
+import android.graphics.Color
+import com.tolganacar.weatherforecast.R
+import com.tolganacar.weatherforecast.util.CityConsts
+import com.tolganacar.weatherforecast.util.ColorConsts
+import com.tolganacar.weatherforecast.view.currentweather.CurrentWeatherThemeUI
+
 data class CurrentWeatherResponseModel(
-    val coord: Coord? = null,
     val weather: List<Weather>? = null,
-    val base: String? = null,
     val main: Main? = null,
-    val visibility: Int? = null,
-    val wind: Wind? = null,
-    val rain: Rain? = null,
-    val clouds: Clouds? = null,
-    val dt: Int? = null,
-    val sys: Sys? = null,
-    val timezone: Int? = null,
-    val id: Int? = null,
     val name: String? = null,
-    val cod: Int? = null
+)
+
+data class Weather(
+    val main: String,
+    val description: String,
+    val icon: String
+)
+
+data class Main(
+    val temp: Double,
+    val temp_min: Double,
+    val temp_max: Double
 )
 
 fun CurrentWeatherResponseModel.getTemperatureText(): String {
@@ -101,47 +108,40 @@ fun CurrentWeatherResponseModel.getMaxTemperatureText(): String {
     return getMaxTemperature
 }
 
-data class Coord(
-    val lon: Double,
-    val lat: Double
-)
+fun CurrentWeatherResponseModel.getCurrentWeatherTheme() : CurrentWeatherThemeUI {
+    var backgroundID: Int
+    var cardViewBackgroundID: String
 
-data class Weather(
-    val id: Int,
-    val main: String,
-    val description: String,
-    val icon: String
-)
+    when (getWeatherMain()) {
+        "Thunderstorm" -> {
+            backgroundID = R.drawable.thunderstorm
+            cardViewBackgroundID = ColorConsts.THUNDERSTORM_COLOR
+        }
+        "Drizzle" -> {
+            backgroundID = R.drawable.rainy
+            cardViewBackgroundID = ColorConsts.RAIN_COLOR
+        }
+        "Rain" -> {
+            backgroundID = R.drawable.rainy
+            cardViewBackgroundID = ColorConsts.RAIN_COLOR
+        }
+        "Snow" -> {
+            backgroundID = R.drawable.snowy
+            cardViewBackgroundID = ColorConsts.SNOW_COLOR
+        }
+        "Clear" -> {
+            backgroundID = R.drawable.clearsky
+            cardViewBackgroundID = ColorConsts.SUNNY_COLOR
+        }
+        "Clouds" -> {
+            backgroundID = R.drawable.cloudy
+            cardViewBackgroundID = ColorConsts.CLOUDY_COLOR
+        }
+        else -> {
+            backgroundID = Color.parseColor(ColorConsts.DEFAULT_COLOR)
+            cardViewBackgroundID = ColorConsts.WHITE_COLOR
+        }
 
-data class Main(
-    val temp: Double,
-    val feels_like: Double,
-    val temp_min: Double,
-    val temp_max: Double,
-    val pressure: Int,
-    val humidity: Int,
-    val sea_level: Int,
-    val grnd_level: Int
-)
-
-data class Wind(
-    val speed: Double,
-    val deg: Int,
-    val gust: Double
-)
-
-data class Rain(
-    val `1h`: Double
-)
-
-data class Clouds(
-    val all: Int
-)
-
-data class Sys(
-    val type: Int,
-    val id: Int,
-    val country: String,
-    val sunrise: Int,
-    val sunset: Int
-)
+    }
+    return CurrentWeatherThemeUI(backgroundID, cardViewBackgroundID)
+}

@@ -29,8 +29,10 @@ class ThreeHourlyWeatherAdapter(
     }
 
     fun updateThreeHourlyWeatherList(newThreeHourlyWeatherList: List<ThreeHourlyUI>) {
-        threeHourlyWeatherList.clear()
-        threeHourlyWeatherList.addAll(newThreeHourlyWeatherList)
+        threeHourlyWeatherList.apply {
+            clear()
+            addAll(newThreeHourlyWeatherList)
+        }
         notifyDataSetChanged()
     }
 }

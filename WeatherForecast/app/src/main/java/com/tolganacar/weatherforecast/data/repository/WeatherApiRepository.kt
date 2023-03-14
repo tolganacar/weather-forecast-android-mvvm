@@ -4,7 +4,7 @@ import com.tolganacar.weatherforecast.data.model.threedaysweather.ThreeDaysWeath
 import com.tolganacar.weatherforecast.data.model.threedaysweather.ThreeDaysWeatherResponseModel
 import kotlinx.coroutines.flow.Flow
 
-interface WeatherThreeDaysRepository {
+interface WeatherApiRepository {
 
     suspend fun getThreeDaysWeather(req: ThreeDaysWeatherRequest): Flow<ThreeDaysWeatherResponseModel>
 }

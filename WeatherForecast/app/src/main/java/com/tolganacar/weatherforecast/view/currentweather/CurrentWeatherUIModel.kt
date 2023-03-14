@@ -6,5 +6,11 @@ data class CurrentWeatherUIModel(
     val weatherStatus: String,
     val weatherMain: String,
     val maxTemperature: String,
-    val minTemperature: String
+    val minTemperature: String,
+    val currentWeatherThemeUI: CurrentWeatherThemeUI
+)
+
+data class CurrentWeatherThemeUI(
+    val backgroundResID: Int,
+    val cardViewBackgroundColorName: String
 )

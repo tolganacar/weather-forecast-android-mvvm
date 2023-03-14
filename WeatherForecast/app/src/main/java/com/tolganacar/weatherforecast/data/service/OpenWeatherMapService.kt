@@ -5,7 +5,7 @@ import com.tolganacar.weatherforecast.data.model.threehourlyweather.ThreeHourlyW
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface WeatherService {
+interface OpenWeatherMapService {
 
     @GET(CURRENT_WEATHER)
     suspend fun getCurrentCityWeather(@Query(CITY_NAME) cityName: String): CurrentWeatherResponseModel

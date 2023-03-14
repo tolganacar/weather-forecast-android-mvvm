@@ -7,7 +7,6 @@
     <string name="_00">00</string>
     <string name="_3_day_forecast">3-DAY FORECAST</string>
     <string-array name="turkey_city">
-        <item>""</item>
         <item>Adana</item>
         <item>Adiyaman</item>
         <item>Afyon</item>
