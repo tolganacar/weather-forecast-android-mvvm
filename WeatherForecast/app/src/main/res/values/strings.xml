@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">WeatherForecast</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_try_again">Error! Try Again</string>
+    <string name="c">°C</string>
+    <string name="_00">00</string>
+    <string name="_3_day_forecast">3-DAY FORECAST</string>
+    <string-array name="turkey_city">
+        <item>Adana</item>
+        <item>Adiyaman</item>
+        <item>Afyon</item>
+        <item>Agri</item>
+        <item>Amasya</item>
+        <item>Ankara</item>
+        <item>Antalya</item>
+        <item>Artvin</item>
+        <item>Aydin</item>
+        <item>Balikesir</item>
+        <item>Bilecik</item>
+        <item>Bingol</item>
+        <item>Bitlis</item>
+        <item>Bolu</item>
+        <item>Burdur</item>
+        <item>Bursa</item>
+        <item>Canakkale</item>
+        <item>Cankiri</item>
+        <item>Corum</item>
+        <item>Denizli</item>
+        <item>Diyarbakir</item>
+        <item>Edirne</item>
+        <item>Elazig</item>
+        <item>Erzincan</item>
+        <item>Erzurum</item>
+        <item>Eskisehir</item>
+        <item>Gaziantep</item>
+        <item>Giresun</item>
+        <item>Hakkari</item>
+        <item>Hatay</item>
+        <item>Isparta</item>
+        <item>Istanbul</item>
+        <item>Izmir</item>
+        <item>Kars</item>
+        <item>Kastamonu</item>
+        <item>Kayseri</item>
+        <item>Kirklareli</item>
+        <item>Kirsehir</item>
+        <item>Kocaeli</item>
+        <item>Konya</item>
+        <item>Kutahya</item>
+        <item>Malatya</item>
+        <item>Manisa</item>
+        <item>Mersin</item>
+        <item>Kahramanmaras</item>
+        <item>Mardin</item>
+        <item>Mugla</item>
+        <item>Mus</item>
+        <item>Nevsehir</item>
+        <item>Nigde</item>
+        <item>Ordu</item>
+        <item>Rize</item>
+        <item>Sakarya</item>
+        <item>Samsun</item>
+        <item>Siirt</item>
+        <item>Sinop</item>
+        <item>Sivas</item>
+        <item>Tekirdag</item>
+        <item>Tokat</item>
+        <item>Trabzon</item>
+        <item>Tunceli</item>
+        <item>Sanliurfa</item>
+        <item>Usak</item>
+        <item>Van</item>
+        <item>Yozgat</item>
+        <item>Zonguldak</item>
+        <item>Aksaray</item>
+        <item>Bayburt</item>
+        <item>Karaman</item>
+        <item>Kirikkale</item>
+        <item>Batman</item>
+        <item>Sirnak</item>
+        <item>Bartin</item>
+        <item>Ardahan</item>
+        <item>Igdir</item>
+        <item>Yalova</item>
+        <item>Karabuk</item>
+        <item>Kilis</item>
+        <item>Osmaniye</item>
+        <item>Duzce</item>
+    </string-array>
+</resources>
