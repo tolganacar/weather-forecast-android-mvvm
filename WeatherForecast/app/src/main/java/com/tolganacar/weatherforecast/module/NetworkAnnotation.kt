@@ -4,8 +4,8 @@ import javax.inject.Qualifier
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class WeatherRetrofit
+annotation class OpenWeatherMapRetrofit
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class WeatherThreeDaysRetrofit
+annotation class WeatherApiRetrofit

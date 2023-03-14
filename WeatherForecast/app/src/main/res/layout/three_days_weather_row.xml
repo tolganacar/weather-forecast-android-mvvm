@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{threeDaysWeather.date}"
+                android:text="@{threeDaysWeather.dateText}"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -33,7 +33,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="20dp"
-                android:downloadUrl="@{threeDaysWeather.image}" />
+                android:downloadUrl="@{threeDaysWeather.imageUrl}" />
 
             <TextView
                 android:id="@+id/tenDayWeatherMinTemp"
@@ -42,7 +42,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|end|center"
-                android:text="@{String.valueOf(threeDaysWeather.minTemperature)}"
+                android:text="@{String.valueOf(threeDaysWeather.minTemperatureText)}"
                 android:textColor="@color/white"
                 android:textSize="23sp" />
 
@@ -53,7 +53,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|end"
-                android:text="@{String.valueOf(threeDaysWeather.maxTemperature)}"
+                android:text="@{String.valueOf(threeDaysWeather.maxTemperatureText)}"
                 android:textColor="@color/white"
                 android:textSize="23sp" />
 

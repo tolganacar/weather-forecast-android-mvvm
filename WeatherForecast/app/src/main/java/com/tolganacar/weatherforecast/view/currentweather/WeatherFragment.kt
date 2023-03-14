@@ -15,6 +15,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolganacar.weatherforecast.R
 import com.tolganacar.weatherforecast.databinding.FragmentCurrentWeatherBinding
+import com.tolganacar.weatherforecast.util.SharedPrefManager
+import com.tolganacar.weatherforecast.util.CityConsts.CITY_HOLDER
+import com.tolganacar.weatherforecast.util.CityConsts.CITY_NAME
+import com.tolganacar.weatherforecast.util.CityConsts.ISTANBUL
+import com.tolganacar.weatherforecast.util.setVisible
 import com.tolganacar.weatherforecast.view.threedaysweather.ThreeDaysWeatherAdapter
 import com.tolganacar.weatherforecast.view.threehourlyweather.ThreeHourlyWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,132 +35,79 @@ class WeatherFragment : Fragment() {
     private val threeDaysWeatherAdapter = ThreeDaysWeatherAdapter(arrayListOf())
 
     private lateinit var getSharedPreferences: SharedPreferences
-    private lateinit var setSharedPreferences: SharedPreferences.Editor
-    private var cName: String? = null
+    private lateinit var sharedPrefManager: SharedPrefManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        dataBinding = DataBindingUtil.inflate(
+        dataBinding = DataBindingUtil.inflate<FragmentCurrentWeatherBinding?>(
             inflater,
             R.layout.fragment_current_weather,
             container,
             false
-        )
-        getSharedPreferences =
-            requireActivity().getSharedPreferences("CityHolder", Context.MODE_PRIVATE)
-        cName = getSharedPreferences.getString("cityName", "istanbul")
-        setSharedPreferences = getSharedPreferences.edit()
+        ).apply {
+            lifecycleOwner = this@WeatherFragment
+            viewModel = this@WeatherFragment.viewModel
+        }
 
-        dataBinding.lifecycleOwner = this
         return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializeUI()
         initializeRecyclerview()
+        initSharedPreferences()
         observeLiveData()
         setSwipeRefreshLayout()
         searchImageOnClickListener()
         setWeatherListArray()
 
-        viewModel.getAllWeatherInformationFromAPI(cName!!)
+        viewModel.getAllWeatherInformationFromAPI(sharedPrefManager.getString(CITY_NAME, ISTANBUL))
     }
 
-    private fun initializeUI() {
-        dataBinding.viewModel = viewModel
+    private fun initSharedPreferences() {
+        getSharedPreferences =
+            requireActivity().getSharedPreferences(CITY_HOLDER, Context.MODE_PRIVATE)
+        sharedPrefManager = SharedPrefManager(getSharedPreferences)
     }
 
     private fun initializeRecyclerview() {
-        threeHourlyRecyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        threeHourlyRecyclerView.adapter = threeHourlyAdapter
+        threeHourlyRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = threeHourlyAdapter
+        }
 
-        threeDaysRecyclerView.layoutManager = LinearLayoutManager(context)
-        threeDaysRecyclerView.adapter = threeDaysWeatherAdapter
+        threeDaysRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = threeDaysWeatherAdapter
+        }
     }
 
     private fun observeLiveData() {
         viewModel.currentWeatherUIModel.observe(viewLifecycleOwner, Observer { currentWeather ->
             currentWeather?.let {
-                when (it.weatherMain) {
-                    "Thunderstorm" -> {
-                        mainPage.setBackgroundResource(R.drawable.thunderstorm)
-                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#EB8C66E1"))
-                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#EB8C66E1"))
-                    }
-                    "Drizzle" -> {
-                        mainPage.setBackgroundResource(R.drawable.rainy)
-                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#EB0A3B40"))
-                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#EB0A3B40"))
-                    }
-                    "Rain" -> {
-                        mainPage.setBackgroundResource(R.drawable.rainy)
-                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#EB0A3B40"))
-                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#EB0A3B40"))
-                    }
-                    "Snow" -> {
-                        mainPage.setBackgroundResource(R.drawable.snowy)
-                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#F2171C83"))
-                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#F2171C83"))
-                    }
-                    "Clear" -> {
-                        mainPage.setBackgroundResource(R.drawable.clearsky)
-                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#EB6C9CEC"))
-                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#EB6C9CEC"))
-                    }
-                    "Clouds" -> {
-                        mainPage.setBackgroundResource(R.drawable.cloudy)
-                        threeHourlyCardView.setCardBackgroundColor(Color.parseColor("#EB7FB3D3"))
-                        threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor("#EB7FB3D3"))
-                    }
-                    else -> {
-                        mainPage.setBackgroundColor(Color.parseColor("#57BAE6"))
-                        threeHourlyCardView.setCardBackgroundColor(Color.WHITE)
-                        threeDaysWeatherCardView.setCardBackgroundColor(Color.WHITE)
-                    }
-                }
+                mainPage.setBackgroundResource(it.currentWeatherThemeUI.backgroundResID)
+                threeHourlyCardView.setCardBackgroundColor(Color.parseColor(it.currentWeatherThemeUI.cardViewBackgroundColorName))
+                threeDaysWeatherCardView.setCardBackgroundColor(Color.parseColor(it.currentWeatherThemeUI.cardViewBackgroundColorName))
             }
         })
 
         viewModel.threeDaysWeatherUIModel.observe(viewLifecycleOwner, Observer { threeDaysWeather ->
-            threeDaysWeather?.let {
-                threeDaysRecyclerView.visibility = View.VISIBLE
-                threeDaysWeatherAdapter.updateTenDayWeatherList(threeDaysWeather)
-            }
+                threeDaysWeatherAdapter.updateTenDayWeatherList(threeDaysWeather.threeDaysWeatherList)
         })
 
-        viewModel.threeHourlyWeatherUIModel.observe(
-            viewLifecycleOwner,
-            Observer { threeHourlyWeather ->
-                threeHourlyWeather?.let {
-                    threeHourlyRecyclerView.visibility = View.VISIBLE
-                    threeHourlyAdapter.updateThreeHourlyWeatherList(threeHourlyWeather)
-                }
-            })
+        viewModel.threeHourlyWeatherUIModel.observe(viewLifecycleOwner, Observer { threeHourlyWeather ->
+                threeHourlyAdapter.updateThreeHourlyWeatherList(threeHourlyWeather.hourlyWeatherList)
+        })
 
         viewModel.shouldShowErrorMessage.observe(viewLifecycleOwner, Observer { error ->
-            error?.let {
-                if (it) {
-                    errorText.visibility = View.VISIBLE
-                } else {
-                    errorText.visibility = View.GONE
-                }
-            }
+            errorText.setVisible(error)
         })
 
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { loading ->
-            loading?.let {
-                if (it) {
-                    loadingBar.visibility = View.VISIBLE
-                    errorText.visibility = View.GONE
-                } else {
-                    loadingBar.visibility = View.GONE
-                }
-            }
+            loadingBar.setVisible(loading)
         })
     }
 
@@ -163,32 +115,26 @@ class WeatherFragment : Fragment() {
         swipeRefreshLayout.setOnRefreshListener {
             errorText.visibility = View.GONE
             loadingBar.visibility = View.VISIBLE
-            var cityName = getSharedPreferences.getString("cityName", cName)
-            viewModel.getAllWeatherInformationFromAPI(cityName!!)
             swipeRefreshLayout.isRefreshing = false
+
+            viewModel.getAllWeatherInformationFromAPI(sharedPrefManager.getString(CITY_NAME, ISTANBUL))
         }
     }
 
     private fun searchImageOnClickListener() {
         searchImage.setOnClickListener {
-            if (autoCompleteTextView.text.toString() == "") {
-            } else if (!(resources.getStringArray(R.array.turkey_city)
-                    .contains(autoCompleteTextView.text.toString()))
-            ) {
-                autoCompleteTextView.setText("")
-            } else {
+            if (resources.getStringArray(R.array.turkey_city).contains(autoCompleteTextView.text.toString())) {
                 val cityName = autoCompleteTextView.text.toString()
-                setSharedPreferences.putString("cityName", cityName).apply()
+                sharedPrefManager.putString(CITY_NAME, cityName)
                 viewModel.getAllWeatherInformationFromAPI(cityName)
-                autoCompleteTextView.setText("")
             }
+            autoCompleteTextView.setText("")
         }
     }
 
     private fun setWeatherListArray() {
         val itemArray = resources.getStringArray(R.array.turkey_city)
-        val arrayAdapter =
-            context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, itemArray) }
+        val arrayAdapter = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, itemArray) }
         autoCompleteTextView.setAdapter(arrayAdapter)
     }
 }

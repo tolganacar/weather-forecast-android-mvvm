@@ -42,7 +42,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @WeatherRetrofit
+    @OpenWeatherMapRetrofit
     fun provideRetrofit(gson: Gson): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL_OPENWEATHERMAP)
@@ -84,7 +84,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @WeatherThreeDaysRetrofit
+    @WeatherApiRetrofit
     fun provideWeatherApiRetrofit(gson: Gson): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL_WEATHERAPI)

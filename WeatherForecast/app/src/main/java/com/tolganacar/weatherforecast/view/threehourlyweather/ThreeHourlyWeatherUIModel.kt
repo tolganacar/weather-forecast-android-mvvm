@@ -1,5 +1,5 @@
 package com.tolganacar.weatherforecast.view.threehourlyweather
 
 data class ThreeHourlyWeatherUIModel(
-    val hourlyList: List<ThreeHourlyUI>
+    val hourlyWeatherList: List<ThreeHourlyUI>
 )

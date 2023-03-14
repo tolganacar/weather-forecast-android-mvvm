@@ -1,9 +1,10 @@
 package com.tolganacar.weatherforecast.data.module
 
-import com.tolganacar.weatherforecast.data.repository.WeatherThreeDaysRepository
-import com.tolganacar.weatherforecast.data.repository.WeatherThreeDaysRepositoryImpl
-import com.tolganacar.weatherforecast.data.service.WeatherThreeDaysService
-import com.tolganacar.weatherforecast.module.WeatherThreeDaysRetrofit
+import com.tolganacar.weatherforecast.data.repository.WeatherApiRepository
+import com.tolganacar.weatherforecast.data.repository.WeatherApiRepositoryImpl
+import com.tolganacar.weatherforecast.data.service.WeatherApiService
+import com.tolganacar.weatherforecast.module.WeatherApiRetrofit
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,14 +18,14 @@ object WeatherApiModule {
 
     @Provides
     @Singleton
-    fun provideWeatherApiService(@WeatherThreeDaysRetrofit retrofit: Retrofit): WeatherThreeDaysService {
-        return retrofit.create(WeatherThreeDaysService::class.java)
+    fun provideWeatherApiService(@WeatherApiRetrofit retrofit: Retrofit): WeatherApiService {
+        return retrofit.create(WeatherApiService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideWeatherRepository(service: WeatherThreeDaysService): WeatherThreeDaysRepository {
-        return WeatherThreeDaysRepositoryImpl(service)
+    fun provideWeatherRepository(service: WeatherApiService): WeatherApiRepository {
+        return WeatherApiRepositoryImpl(service)
     }
 
 }

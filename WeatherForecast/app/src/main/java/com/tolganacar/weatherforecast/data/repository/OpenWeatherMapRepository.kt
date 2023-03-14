@@ -5,7 +5,7 @@ import com.tolganacar.weatherforecast.data.model.currentweather.CurrentWeatherRe
 import com.tolganacar.weatherforecast.data.model.threehourlyweather.ThreeHourlyWeatherResponseModel
 import kotlinx.coroutines.flow.Flow
 
-interface WeatherRepository {
+interface OpenWeatherMapRepository {
 
     suspend fun getCurrentWeather(req: CurrentWeatherRequest): Flow<CurrentWeatherResponseModel>
 
